@@ -1,0 +1,35 @@
+// JSON Serialization
+Account[] Acc = [Select id, Name, Phone From Account Limit 5];
+String JAcc = JSON.Serialize(Acc);
+System.debug(JAcc);
+
+// JSON SerializationPretty
+Account[] Acc = [Select id, Name, Phone From Account Limit 5];
+String JAcc = JSON.SerializePretty(Acc);
+System.debug(JAcc);
+
+
+// JSON deserialization
+String JStr = '10';
+Integer Str = (Integer)JSON.deserialize(JStr,Integer.Class);
+System.debug(Str*5);
+
+String JAcc = '{"Name":"Harshal", "Phone":"865720212", "Fax":"0071"}';
+Account Acc = (Account)JSON.deserialize(JAcc, Account.Class);
+System.debug(Acc);
+Insert(Acc);
+
+// JSON deserializationStrict
+String JAcc1 = '{"Name":"Harshal_R", "Phone":"11865720212", "Fax":"110071"}';
+Account Acc1 = (Account)JSON.deserializeStrict(JAcc1, Account.Class);
+System.debug(Acc1);
+Insert(Acc1);
+
+// JSON DeserializationUntyped
+String JAcc1 = '{"Name":"Harshal_RR", "Phone":"11865720212", "Fax":"110071", "Email":"HR@g.c"}';
+Account Acc1 = (Account)JSON.deserialize(JAcc1, Account.Class);
+
+Map<String,Object> Acc2 = (Map<String,Object>)JSON.deserializeUntyped(JAcc1);
+System.debug(Acc2);
+System.debug(Acc2.keyset());
+System.debug(Acc2.values());
